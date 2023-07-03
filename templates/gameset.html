@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    {% load static %}
+    <link href="{% static 'css/styles.css'%}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../index/" style="color: white;">數據平台</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% comment %} <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            商品分類
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="../hanio/">戈登頂級牛肉</a></li>
+                            <li><a class="dropdown-item" href="../pork/">戈登嚴選豬肉</a></li>
+                            <li><a class="dropdown-item" href="../seafood/">戈登經典海鮮</a></li>
+                            
+                        </ul>
+                    </li> {% endcomment %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../gameset/" >建立比賽</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <br><br><br>
+    <h3>建立比賽</h3>
+    <form action="" method="POST" class="update-form">{% csrf_token %}
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" name="gid" class="form-control" placeholder="比賽編號">
+            </div>
+            <div class="col-md-4">
+                <input type="text" name="gname" class="form-control" placeholder="比賽名稱">
+            </div>
+            <div class="col-md-4">
+                <input type="submit" value="建立比賽" class="btn btn-outline-dark">
+            </div>
+        </div>
+    </form>
+    <br><br><br>
+    <h3>登入球員</h3>
+    <form action="" method="POST" class="update-form">{% csrf_token %}
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" name="number" class="form-control" placeholder="球員背號">
+            </div>
+            <div class="col-md-3">
+                <select name="status" class="form-control">
+                    <option value="GS">先發</option>
+                    <option value="BENCH">替補</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="gid" class="form-control" placeholder="比賽編號">
+            </div>
+            <div class="col-md-3">
+                <input type="submit" value="完成登入" class="btn btn-outline-dark">
+            </div>
+        </div>
+    </form>
+    
+    <br>
+    <br><br>
+    <h3>本場球員</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>球員</th>
+                <th>背號</th>
+                <th>比賽編號</th>
+                <th>狀態</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align="left" valign="middle">
+                        {% comment %} {{ .PName }} {% endcomment %}
+                    </td>
+                    <td align="left" valign="middle">
+                        {% comment %} {{ .PNUM }} {% endcomment %}
+                    </td>
+                    <td align="left" valign="middle">
+                        {% comment %} {{ .GID }} {% endcomment %}
+                    </td>
+                    <td align="left" valign="middle">
+                        {% comment %} {{ .GS }} {% endcomment %}
+                    </td>                   
+                </tr>
+            </tbody>         
+            
+    
+          </table>
+</body>
+</html>
