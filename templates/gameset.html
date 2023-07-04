@@ -36,6 +36,9 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="../gameset/" >建立比賽</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../strategy/" >戰術統計</a>
+                    </li>
                     
                 </ul>
             </div>
@@ -44,7 +47,7 @@
 
     <br><br><br>
     <h3>建立比賽</h3>
-    <form action="" method="POST" class="update-form">{% csrf_token %}
+    <form action="/addgame/" method="POST" class="update-form">{% csrf_token %}
         <div class="row">
             <div class="col-md-4">
                 <input type="text" name="gid" class="form-control" placeholder="比賽編號">
@@ -59,7 +62,7 @@
     </form>
     <br><br><br>
     <h3>登入球員</h3>
-    <form action="" method="POST" class="update-form">{% csrf_token %}
+    <form action="/login/" method="POST" class="update-form">{% csrf_token %}
         <div class="row">
             <div class="col-md-3">
                 <input type="text" name="number" class="form-control" placeholder="球員背號">
@@ -93,20 +96,22 @@
               </tr>
             </thead>
             <tbody>
+                {% for player1 in player %}
                 <tr>
                     <td align="left" valign="middle">
-                        {% comment %} {{ .PName }} {% endcomment %}
+                        {{ player1.PName }}
                     </td>
                     <td align="left" valign="middle">
-                        {% comment %} {{ .PNUM }} {% endcomment %}
+                        {{ player1.NUM }} 
                     </td>
                     <td align="left" valign="middle">
-                        {% comment %} {{ .GID }} {% endcomment %}
+                        {{ player1.GID }} 
                     </td>
                     <td align="left" valign="middle">
-                        {% comment %} {{ .GS }} {% endcomment %}
+                        {{ player1.GS }}
                     </td>                   
                 </tr>
+                {% endfor %}
             </tbody>         
             
     

@@ -36,7 +36,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../gameset/" >建立比賽</a>
                     </li>
-                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="../strategy/" >戰術統計</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -66,56 +68,57 @@
               </tr>
             </thead>
             <tbody>
+                {% for player1 in player %}
               <tr>
-                <form action="" method="POST" class="update-form">{% csrf_token %}
+                <form action="/renew/" method="POST" class="update-form">{% csrf_token %}
                     <td>
-                        <input type="text" name = "name" class="form-control" placeholder="">
+                        <input type="text" name = "name" class="form-control" value="{{player1.PName}}">
                     </td>
                     <td>
-                        <input type="text" name = "number" class="form-control" placeholder="">
-                    </td>
-                  
-                    <td align="left" valign="middle">
-                        <input type="number" name = "min" class="form-control" placeholder="">
+                        <input type="text" name = "number" class="form-control" value="{{player1.NUM}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name = "pts" class="form-control" placeholder="">
+                        <input type="number" name = "min" class="form-control"  min="0" value="{{player1.MIN}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name="reb" class="form-control quantity-input" min="1" step="1">
+                        <input type="number" name = "pts" class="form-control"  min="0" value="{{player1.PTS}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name="or" class="form-control quantity-input" min="1" step="1">
+                        <input type="number" name="reb" class="form-control quantity-input" min="0" step="1" value="{{player1.REB}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name="br" class="form-control quantity-input" min="1" step="1">
+                        <input type="number" name="or" class="form-control quantity-input" min="0" step="1" value="{{player1.OR}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name="ast" class="form-control quantity-input" min="1" step="1">
+                        <input type="number" name="br" class="form-control quantity-input" min="0" step="1" value="{{player1.BR}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name="stl" class="form-control quantity-input" min="1" step="1">
+                        <input type="number" name="ast" class="form-control quantity-input" min="0" step="1" value="{{player1.AST}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name="blk" class="form-control quantity-input" min="1" step="1">
+                        <input type="number" name="stl" class="form-control quantity-input" min="0" step="1" value="{{player1.STL}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name="to" class="form-control quantity-input" min="1" step="1">
+                        <input type="number" name="blk" class="form-control quantity-input" min="0" step="1" value="{{player1.BLK}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name="fg" class="form-control quantity-input" min="1" step="1">
+                        <input type="number" name="to" class="form-control quantity-input" min="0" step="1" value="{{player1.TO}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name="3p" class="form-control quantity-input" min="1" step="1">
+                        <input type="number" name="fg" class="form-control quantity-input" min="0" step="1" value="{{player1.FG}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name="ft" class="form-control quantity-input" min="1" step="1">
+                        <input type="number" name="3p" class="form-control quantity-input" min="0" step="1" value="{{player1.TP}}">
+                    </td>value
+                    <td align="left" valign="middle">
+                        <input type="number" name="ft" class="form-control quantity-input" min="0" step="1" value="{{player1.FT}}">
                     </td>
                     <td>
                         <input type="submit" value="更新" class="btn btn-outline-dark">
                     </td>
-                    <input type="hidden" name="pid" value="">                    
+                    <input type="hidden" name="pid" value="{{player1.PID}}">                    
                 </form>
+                {% endfor %}
                 
                 <!-- <form action="" method="POST">{% csrf_token %}
                   <td align="left" valign="middle">
@@ -124,6 +127,7 @@
                   </td>
                 </form> -->
               </tr>
+              
             </tbody>         
             
             <tfoot>

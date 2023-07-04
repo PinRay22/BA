@@ -1,8 +1,8 @@
 from django.db import models
 
-
+# 球員數據
 class players(models.Model):
-    PID = models.AutoField('球員編號', primary_key=True)
+    PID = models.AutoField('球員編號', primary_key=True) # 不能重複
     GID = models.CharField('比賽編號', max_length=20)
     PName = models.CharField('會員姓名', max_length=20)
     NUM = models.IntegerField('球衣號', null=True)
@@ -15,7 +15,7 @@ class players(models.Model):
     STL = models.IntegerField('抄截', null=True)
     BLK = models.IntegerField('阻攻', null=True)
     TO = models.IntegerField('失誤', null=True)
-    FG = models.IntegerField('2分球', null=True)
+    FG = models.CharField('2分球', max_length=10, null=True)
     TP = models.IntegerField('3分球', null=True)
     FT = models.IntegerField('罰球', null=True)
     GS_CHOICES = [
@@ -25,7 +25,36 @@ class players(models.Model):
     ]
     GS = models.CharField('狀態',max_length=5, choices=GS_CHOICES, default='DNP')
 
+    def calculate_fg_percentage(self):
+        if self.FG is not None:
+            made, attempted = map(int, self.FG.split('/'))
+            if attempted > 0:
+                percentage = round(made / attempted, 2)
+                return f"{made}/{attempted} ({percentage})"
+        return None
+
+    def update_fg_percentage(self, made, attempted):
+        if self.FG is not None:
+            old_made, old_attempted = map(int, self.FG.split('/'))
+            new_made = old_made + made
+            new_attempted = old_attempted + attempted
+            self.FG = f"{new_made}/{new_attempted}"
+        else:
+            self.FG = f"{made}/{attempted}"
+            
+
+# 比賽
 class GAME(models.Model):
-    GID = models.CharField('比賽編號', max_length=50, null = False)
+    GID = models.CharField('比賽編號', max_length=50, null = False) # 不能重複
     GName = models.CharField('比賽名稱', max_length=50)
+
+
+class Strategy(models.Model):
+    SID = models.CharField('戰術表編號', max_length=50, null = False) # 不能重複
+    SName = models.CharField('戰術名稱', max_length=50)    # 西班牙擋拆              # 西班牙擋拆
+    SPlayer = models.CharField('場上球員', max_length=50)  # 0, 17, 5, 35, 96       # 0, 17, 15, 33, 96
+    SStPlayer = models.CharField('發動者', max_length=50)  # 0                      # 15
+    EndPlayer = models.CharField('終結者', max_length=50)  # 17                     # 17
+    Clean = models.CharField('空檔', max_length=50)  # 0                            # 0
+
 

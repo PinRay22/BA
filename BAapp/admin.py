@@ -4,3 +4,4 @@ from BAapp.models import *
 
 admin.site.register(players)
 admin.site.register(GAME)
+admin.site.register(Strategy)
