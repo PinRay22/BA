@@ -16,8 +16,8 @@ class players(models.Model):
     BLK = models.IntegerField('阻攻', null=True)
     TO = models.IntegerField('失誤', null=True)
     FG = models.CharField('2分球', max_length=10, null=True)
-    TP = models.IntegerField('3分球', null=True)
-    FT = models.IntegerField('罰球', null=True)
+    TP = models.CharField('3分球', max_length=10, null=True)
+    FT = models.CharField('罰球', max_length=10, null=True)
     GS_CHOICES = [
         ('GS', '首發'),
         ('BENCH', '替補'),
@@ -32,6 +32,22 @@ class players(models.Model):
                 percentage = round(made / attempted, 2)
                 return f"{made}/{attempted} ({percentage})"
         return None
+    
+    def calculate_tp_percentage(self):
+        if self.TP is not None:
+            made, attempted = map(int, self.TP.split('/'))
+            if attempted > 0:
+                percentage = round(made / attempted, 2)
+                return f"{made}/{attempted} ({percentage})"
+        return None
+    
+    def calculate_ft_percentage(self):
+        if self.FT is not None:
+            made, attempted = map(int, self.FT.split('/'))
+            if attempted > 0:
+                percentage = round(made / attempted, 2)
+                return f"{made}/{attempted} ({percentage})"
+        return None
 
     def update_fg_percentage(self, made, attempted):
         if self.FG is not None:
@@ -41,6 +57,27 @@ class players(models.Model):
             self.FG = f"{new_made}/{new_attempted}"
         else:
             self.FG = f"{made}/{attempted}"
+        self.save()
+
+    def update_tp_percentage(self, made, attempted):
+        if self.TP is not None:
+            old_made, old_attempted = map(int, self.TP.split('/'))
+            new_made = old_made + made
+            new_attempted = old_attempted + attempted
+            self.TP = f"{new_made}/{new_attempted}"
+        else:
+            self.TP = f"{made}/{attempted}"
+        self.save()
+
+    def update_ft_percentage(self, made, attempted):
+        if self.FT is not None:
+            old_made, old_attempted = map(int, self.FT.split('/'))
+            new_made = old_made + made
+            new_attempted = old_attempted + attempted
+            self.FT = f"{new_made}/{new_attempted}"
+        else:
+            self.FT = f"{made}/{attempted}"
+        self.save()
             
 
 # 比賽

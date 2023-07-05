@@ -65,6 +65,10 @@
                 <th>3P</th>
                 <th>FT</th>
                 <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -78,10 +82,10 @@
                         <input type="text" name = "number" class="form-control" value="{{player1.NUM}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name = "min" class="form-control"  min="0" value="{{player1.MIN}}">
+                        <input type="number" name = "min" class="form-control quantity-input"  min="0" value="{{player1.MIN}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name = "pts" class="form-control"  min="0" value="{{player1.PTS}}">
+                        <input type="number" name = "pts" class="form-control quantity-input"  min="0" value="{{player1.PTS}}">
                     </td>
                     <td align="left" valign="middle">
                         <input type="number" name="reb" class="form-control quantity-input" min="0" step="1" value="{{player1.REB}}">
@@ -105,30 +109,75 @@
                         <input type="number" name="to" class="form-control quantity-input" min="0" step="1" value="{{player1.TO}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name="fg" class="form-control quantity-input" min="0" step="1" value="{{player1.FG}}">
+                        <input type="text" name="fg" class="form-control " value="{{player1.FG}}">
                     </td>
                     <td align="left" valign="middle">
-                        <input type="number" name="3p" class="form-control quantity-input" min="0" step="1" value="{{player1.TP}}">
-                    </td>value
-                    <td align="left" valign="middle">
-                        <input type="number" name="ft" class="form-control quantity-input" min="0" step="1" value="{{player1.FT}}">
+                        <input type="text" name="3p" class="form-control " value="{{player1.TP}}">
                     </td>
-                    <td>
+                    <td align="left" valign="middle">
+                        <input type="text" name="ft" class="form-control " value="{{player1.FT}}">
+                    </td>
+                    <td style="display: none;">
                         <input type="submit" value="更新" class="btn btn-outline-dark">
                     </td>
                     <input type="hidden" name="pid" value="{{player1.PID}}">                    
                 </form>
+                <td>
+                    <form action="/two_cant_hit/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="pid" value="{{ player1.PID }}">
+                        <button type="submit" class="btn btn-outline-dark">2沒進</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/two_hit/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="pid" value="{{ player1.PID }}">
+                        <button type="submit" class="btn btn-outline-dark">2進</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/three_cant_hit/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="pid" value="{{ player1.PID }}">
+                        <button type="submit" class="btn btn-outline-dark">3沒進</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/three_hit/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="pid" value="{{ player1.PID }}">
+                        <button type="submit" class="btn btn-outline-dark">3進</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/free_cant_hit/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="pid" value="{{ player1.PID }}">
+                        <button type="submit" class="btn btn-outline-dark">罰沒進</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/free_hit/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="pid" value="{{ player1.PID }}">
+                        <button type="submit" class="btn btn-outline-dark">罰進</button>
+                    </form>
+                </td>
                 {% endfor %}
-                
-                <!-- <form action="" method="POST">{% csrf_token %}
-                  <td align="left" valign="middle">
-                    
-                    <input type="submit" value="移除" class="btn btn-outline-danger">
-                  </td>
-                </form> -->
-              </tr>
-              
-            </tbody>         
+              </tr>              
+            </tbody>  
+            <script>
+                $(document).ready(function () {
+                  // 提交表單事件處理函式
+                  $('.quantity-input').on('input', function () {
+                    var row = $(this).closest('tr');
+                    var form = row.find('.update-form');
+                    form.submit();
+                  });
+                });
+            </script>
+                     
             
             <tfoot>
               <tr>
@@ -150,5 +199,8 @@
               </tr>
             </tfoot>
           </table>
+
+          
+          
 </body>
 </html>

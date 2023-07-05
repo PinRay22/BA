@@ -25,5 +25,11 @@ urlpatterns = [
     path('addgame/', views.add_game),
     path('login/', views.login),
     path('renew/', views.renew),
+    path('two_cant_hit/', views.two_cant_hit),
+    path('two_hit/', views.two_hit),
+    path('three_cant_hit/', views.three_cant_hit),
+    path('three_hit/', views.three_hit),
+    path('free_cant_hit/', views.free_cant_hit),
+    path('free_hit/', views.free_hit),
 
 ]

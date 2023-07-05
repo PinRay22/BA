@@ -15,6 +15,73 @@ def index_view(request):
 
     return render(request, 'index.html', locals())
 
+def two_cant_hit(request):
+    if request.method == 'POST':
+        get_pid = request.POST.get('pid', '')
+        player = players.objects.get( PID = get_pid )
+        player.update_fg_percentage(0, 1)  # 更新2分球的數據
+        
+        # 或者計算2分球的命中率
+        fg_percentage = player.calculate_fg_percentage()
+        print(fg_percentage)
+    return redirect('/index/')
+
+def two_hit(request):
+    get_pid = request.POST.get('pid', '')
+    # 假設您要更新球員編號為1的球員的2分球數據
+    player = players.objects.get( PID = get_pid )
+    player.update_fg_percentage(1, 1)  # 更新2分球的數據
+    
+    # 或者計算2分球的命中率
+    fg_percentage = player.calculate_fg_percentage()
+    print(fg_percentage)
+    return redirect('/index/')
+
+def three_cant_hit(request):
+    if request.method == 'POST':
+        get_pid = request.POST.get('pid', '')
+        player = players.objects.get( PID = get_pid )
+        player.update_tp_percentage(0, 1)  # 更新3分球的數據
+        
+        # 或者計算2分球的命中率
+        tp_percentage = player.calculate_tp_percentage()
+        print(tp_percentage)
+    return redirect('/index/')
+
+def three_hit(request):
+    get_pid = request.POST.get('pid', '')
+    # 假設您要更新球員編號為1的球員的2分球數據
+    player = players.objects.get( PID = get_pid )
+    player.update_tp_percentage(1, 1)  # 更新3分球的數據
+    
+    # 或者計算2分球的命中率
+    tp_percentage = player.calculate_tp_percentage()
+    print(tp_percentage)
+    return redirect('/index/')
+
+def free_cant_hit(request):
+    if request.method == 'POST':
+        get_pid = request.POST.get('pid', '')
+        player = players.objects.get( PID = get_pid )
+        player.update_ft_percentage(0, 1)  # 更新3分球的數據
+        
+        # 或者計算2分球的命中率
+        ft_percentage = player.calculate_ft_percentage()
+        print(ft_percentage)
+    return redirect('/index/')
+
+def free_hit(request):
+    get_pid = request.POST.get('pid', '')
+    # 假設您要更新球員編號為1的球員的2分球數據
+    player = players.objects.get( PID = get_pid )
+    player.update_ft_percentage(1, 1)  # 更新3分球的數據
+    
+    # 或者計算2分球的命中率
+    ft_percentage = player.calculate_ft_percentage()
+    print(ft_percentage)
+    return redirect('/index/')
+
+
 def renew(request):
     get_pid = request.POST.get('pid', '')
     get_name = request.POST.get('name', '')
@@ -79,18 +146,18 @@ def login(request):
         PName = 'None',
         GID = get_gid,
         GS = get_status,
-        MIN = None,
-        PTS = None,
-        REB = None,
-        OR = None,
-        BR = None,
-        AST = None,
-        STL = None,
-        BLK = None,
-        TO = None,
-        FG = None,
-        TP = None,
-        FT = None
+        MIN = 0,
+        PTS = 0,
+        REB = 0,
+        OR = 0,
+        BR = 0,
+        AST = 0,
+        STL = 0,
+        BLK = 0,
+        TO = 0,
+        FG = 0,
+        TP = 0,
+        FT = 0
     )
     return redirect('/gameset/')
 
