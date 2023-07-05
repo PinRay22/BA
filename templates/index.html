@@ -75,11 +75,11 @@
                 {% for player1 in player %}
               <tr>
                 <form action="/renew/" method="POST" class="update-form">{% csrf_token %}
-                    <td>
+                    <td align="left" valign="middle" >
                         <input type="text" name = "name" class="form-control" value="{{player1.PName}}">
                     </td>
-                    <td>
-                        <input type="text" name = "number" class="form-control" value="{{player1.NUM}}">
+                    <td align="left" valign="middle">
+                        <input type="text" name = "number" class="form-control quantity-input" value="{{player1.NUM}}">
                     </td>
                     <td align="left" valign="middle">
                         <input type="number" name = "min" class="form-control quantity-input"  min="0" value="{{player1.MIN}}">
@@ -122,42 +122,42 @@
                     </td>
                     <input type="hidden" name="pid" value="{{player1.PID}}">                    
                 </form>
-                <td>
+                <td align="left" valign="middle">
                     <form action="/two_cant_hit/" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="pid" value="{{ player1.PID }}">
                         <button type="submit" class="btn btn-outline-dark">2沒進</button>
                     </form>
                 </td>
-                <td>
+                <td align="left" valign="middle">
                     <form action="/two_hit/" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="pid" value="{{ player1.PID }}">
                         <button type="submit" class="btn btn-outline-dark">2進</button>
                     </form>
                 </td>
-                <td>
+                <td align="left" valign="middle">
                     <form action="/three_cant_hit/" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="pid" value="{{ player1.PID }}">
                         <button type="submit" class="btn btn-outline-dark">3沒進</button>
                     </form>
                 </td>
-                <td>
+                <td align="left" valign="middle">
                     <form action="/three_hit/" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="pid" value="{{ player1.PID }}">
                         <button type="submit" class="btn btn-outline-dark">3進</button>
                     </form>
                 </td>
-                <td>
+                <td align="left" valign="middle">
                     <form action="/free_cant_hit/" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="pid" value="{{ player1.PID }}">
                         <button type="submit" class="btn btn-outline-dark">罰沒進</button>
                     </form>
                 </td>
-                <td>
+                <td align="left" valign="middle">
                     <form action="/free_hit/" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="pid" value="{{ player1.PID }}">
@@ -174,11 +174,10 @@
                     var row = $(this).closest('tr');
                     var form = row.find('.update-form');
                     form.submit();
+
                   });
                 });
             </script>
-                     
-            
             <tfoot>
               <tr>
                 <td colspan="1"></td>
