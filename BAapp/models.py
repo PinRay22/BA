@@ -94,4 +94,21 @@ class Strategy(models.Model):
     EndPlayer = models.CharField('終結者', max_length=50)  # 17                     # 17
     Clean = models.CharField('空檔', max_length=50)  # 0                            # 0
 
+class Intelligence_p(models.Model):
+    IID = models.AutoField('情蒐表(球員)編號', primary_key=True)
+    IName = models.CharField('球員名稱', max_length=50) 
+    Iteam = models.CharField('球隊名稱', max_length=50) 
+    INum = models.CharField('球員背號', max_length=50) 
+    Height = models.IntegerField('身高', null=True)
+    Weight = models.IntegerField('體重', null=True)
+    U_strat = models.CharField('常用戰術', max_length=50)
+    Position = models.CharField('位置', max_length=50)
+    Habit = models.CharField('球員習慣', max_length=100)
+    Dhand = models.CharField('慣用手', max_length=50)
 
+class Intelligence_T(models.Model):
+    TID = models.AutoField('情蒐表(球隊)編號', primary_key=True )
+    Tteam = models.CharField('球隊名稱', max_length=50 ) 
+    c_player = models.CharField('主力球員', max_length=50 )
+    U_Strate = models.CharField('常用戰術', max_length=100) 
+    Defence = models.CharField('防守模式', max_length=200) 

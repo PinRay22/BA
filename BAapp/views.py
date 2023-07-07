@@ -135,11 +135,14 @@ def renew(request):
 # 建立比賽頁面
 def gameset_view(request):
     latest_game = GAME.objects.latest('GID')
-
     if latest_game is not None:
         latest_gid = latest_game.GID
     else:
         latest_gid = None
+
+    if 'gid' in request.POST:
+        latest_gid = request.POST.get('gid', '')
+    
     player = players.objects.filter( GID = latest_gid )
     return render(request, 'gameset.html', locals())
 
@@ -153,14 +156,20 @@ def add_game(request):
     )
     return redirect('/gameset/')
 
+
 # 登入球員
 def login(request):
     get_number = request.POST.get('number', '')
+    player = players.objects.filter(NUM=get_number).first()
+    if player:
+        name = player.PName
+    else:
+        name = None
     get_status = request.POST.get('status', '')
     get_gid = request.POST.get('gid', '')
     players.objects.create(
         NUM = get_number,
-        PName = 'None',
+        PName = name,
         GID = get_gid,
         GS = get_status,
         MIN = 0,
@@ -172,12 +181,15 @@ def login(request):
         STL = 0,
         BLK = 0,
         TO = 0,
-        FG = 0/0,
-        TP = 0/0,
-        FT = 0/0
+        FG = '0/0',
+        TP = '0/0',
+        FT = '0/0'
     )
     return redirect('/gameset/')
 
 # 戰術分析頁面
 def strategy_view(request):
     return render(request, 'strategy.html', locals())
+
+def intell_view(request):
+    return render(request, 'intelligence.html', locals())

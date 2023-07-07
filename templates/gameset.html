@@ -22,12 +22,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                 <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            商品分類
-                        </a>                   
-                       
-                    </li> 
+                 
                     <li class="nav-item">
                         <a class="nav-link active" href="../gameset/" >建立比賽</a>
                     </li>
@@ -35,6 +30,9 @@
                         <a class="nav-link" href="../strategy/" >戰術統計</a>
                     </li>
                     
+                    <li class="nav-item">
+                        <a class="nav-link" href="../intell/" >情蒐平台</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -79,7 +77,23 @@
     
     <br>
     <br><br>
-    <h3>本場球員</h3>
+    <h3>本場球員(比賽: {{ latest_gid }})</h3>
+    <form action="/gameset/" method="POST" class="update-form">{% csrf_token %}
+        <div class="row">
+            <div class="col-md-3">
+                <h4 class="mb-0">
+                    <label for="product-name" class="form-label">選擇場次：</label>
+                </h4>
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="gid" class="form-control" placeholder="比賽編號">
+            </div>
+            <div class="col-md-3">
+                <input type="submit" value="更改" class="btn btn-outline-dark">
+            </div>
+        </div>
+    </form>
+
           <table class="table">
             <thead>
               <tr>

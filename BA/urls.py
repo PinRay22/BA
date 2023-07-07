@@ -22,6 +22,7 @@ urlpatterns = [
     path('index/', views.index_view),
     path('gameset/', views.gameset_view),
     path('strategy/', views.strategy_view),
+    path('intell/', views.intell_view),
     path('addgame/', views.add_game),
     path('login/', views.login),
     path('renew/', views.renew),
