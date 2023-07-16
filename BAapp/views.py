@@ -191,5 +191,104 @@ def login(request):
 def strategy_view(request):
     return render(request, 'strategy.html', locals())
 
+def save_offensive_stats(request):
+    if request.method == 'POST':
+        p1 = request.POST.get('p1')
+        p2 = request.POST.get('p2')
+        p3 = request.POST.get('p3')
+        p4 = request.POST.get('p4')
+        p5 = request.POST.get('p5')
+        offensive_system = request.POST.get('offensive-system')
+        if offensive_system == '其他':
+            offensive_system = request.POST.get('other-option-value')
+        shooter = request.POST.get('shooter')
+        is_vacant = request.POST.get('is-vacant') == '是'
+        is_scored = request.POST.get('is-scored') == '是'
+        remarks = request.POST.get('remarks')
+        o1 = request.POST.get('o1')
+        o2 = request.POST.get('o2')
+        o3 = request.POST.get('o3')
+        o4 = request.POST.get('o4')
+        o5 = request.POST.get('o5')
+
+        defensive_system = request.POST.get('defensive-system')
+        if defensive_system == '其他':
+            defensive_system = request.POST.get('defense-other-option-value')
+        opponent_remarks = request.POST.get('opponent-remarks')
+        
+        offensive_stats = OffensiveStats(
+            P1=p1,
+            P2=p2,
+            P3=p3,
+            P4=p4,
+            P5=p5,
+            OffensiveSystem=offensive_system,
+            Shooter=shooter,
+            IsVacant=is_vacant,
+            IsScored=is_scored,
+            Remarks=remarks,
+            O1=o1,
+            O2=o2,
+            O3=o3,
+            O4=o4,
+            O5=o5,
+            DefensiveSystem=defensive_system,
+            Opponent_Remarks=opponent_remarks
+        )
+        offensive_stats.save()
+        
+    return redirect('/strategy/')
+
+
+def strategy2_view(request):
+    return render(request, 'strategy_de.html', locals())
+
+def save_defensive_stats(request):
+    if request.method == 'POST':
+        p1 = request.POST.get('p1')
+        p2 = request.POST.get('p2')
+        p3 = request.POST.get('p3')
+        p4 = request.POST.get('p4')
+        p5 = request.POST.get('p5')
+        defensive_system = request.POST.get('defensive_system')
+        if defensive_system == '其他':
+            defensive_system = request.POST.get('defense-other-option-value')
+        remarks = request.POST.get('remarks')
+        o1 = request.POST.get('o1')
+        o2 = request.POST.get('o2')
+        o3 = request.POST.get('o3')
+        o4 = request.POST.get('o4')
+        o5 = request.POST.get('o5')
+        offensive_system = request.POST.get('offense-tactic')
+        if offensive_system == '其他':
+            offensive_system = request.POST.get('offense-other-option-value')
+        shooter = request.POST.get('shooter')
+        is_vacant = request.POST.get('is-vacant') == '是'
+        is_scored = request.POST.get('is-score') == '是'
+        opponent_remarks = request.POST.get('opponent-remarks')
+
+        defensive_stats = DefensiveStats(
+            P1=p1,
+            P2=p2,
+            P3=p3,
+            P4=p4,
+            P5=p5,
+            DefensiveSystem=defensive_system,
+            Remarks=remarks,            
+            O1=o1,
+            O2=o2,
+            O3=o3,
+            O4=o4,
+            O5=o5,
+            OffensiveSystem=offensive_system,
+            Shooter=shooter,
+            IsVacant=is_vacant,
+            IsScored=is_scored,
+            Opponent_Remarks=opponent_remarks
+        )
+        defensive_stats.save()
+
+    return redirect('/strategyde/')
+
 def intell_view(request):
     return render(request, 'intelligence.html', locals())

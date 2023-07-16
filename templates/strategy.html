@@ -26,8 +26,11 @@
                         <a class="nav-link" href="../gameset/" >建立比賽</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="../strategy/" >戰術統計</a>
-                    </li>
+                      <a class="nav-link active" href="../strategy/" >進攻端蒐集</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="../strategyde/" >防守端蒐集</a>
+                  </li>
                     <li class="nav-item">
                       <a class="nav-link" href="../intell/" >情蒐平台</a>
                   </li>
@@ -37,115 +40,212 @@
     </nav>
     <br><br><br>
  
-    <h2><strong>戰術統計</strong></h2>
+    <h2><strong>賽後數據蒐集 - 進攻端</strong></h2>
     <br>
 
     <div class="col-lg-6">
-        <form action="//" method = "POST">{% csrf_token %}
+        <form action="/save_offensive_stats/" method = "POST">{% csrf_token %}
             <div class="mb-3">
+              <div class="row">
+                <div class="col-lg-4">
+                  <h4 class="mb-0">
+                    <label for="product-name" class="form-label">我方陣容：</label>
+                  </h4>
+                </div>  
+                <div class="col-lg-8">
+                  <div class="verification-code-input">
+                    <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" name="p1" required>
+                    <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" name="p2" required>
+                    <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" name="p3" required>
+                    <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" name="p4" required>
+                    <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" name="p5" required>
+                  </div>
+                </div>                
+            </div>
+              
+            <style>
+                .verification-code-input {
+                    display: flex;
+                }
+              
+                .verification-code-input input {
+                    flex: 1;
+                    margin-right: 5px;
+                }
+            </style>
+            <br>
+              <div class="row">
+                <div class="col-lg-4">
+                  <h4 class="mb-0">
+                    <label for="product-name" class="form-label">我方進攻系統：</label>
+                  </h4>
+                </div>
+                <div class="col-lg-8">
+                  <select class="form-select" name="offensive-system" id="product-name" required>
+                    <option value="不採用戰術" selected>不採用戰術</option>
+                    <option value="牛角戰術">牛角戰術</option>
+                    <option value="西班牙擋拆">西班牙擋拆</option>
+                    <option value="戰術名稱3">戰術名稱3</option>
+                    <option value="其他">其他</option>
+                    <!-- 根據您的需求，添加其他選項 -->
+                  </select>
+                  <style>
+                    #other-option {
+                      padding-top: 10px;
+                    }
+                  </style>
+                  
+                  <div id="other-option" style="display: none;">
+                    <input type="text" name="other-option-value" class="form-control" placeholder="填寫戰術">
+                  </div>
+                  
+                </div>
+              </div>
+                  <script>
+                    const selectElement = document.getElementById('product-name');
+                    const otherOptionDiv = document.getElementById('other-option');
+
+                    selectElement.addEventListener('change', function() {
+                    if (selectElement.value === '其他') {
+                      otherOptionDiv.style.display = 'block';
+                    } else {
+                      otherOptionDiv.style.display = 'none';
+                    }
+                    });
+                  </script> 
+                <br>
                 <div class="row">
                     <div class="col-lg-4">
                       <h4 class="mb-0">
-                        <label for="product-name" class="form-label">戰術名稱：</label>
+                        <label for="product-name" class="form-label">出手者：</label>
                       </h4>
                     </div>
                     <div class="col-lg-8">
-                        <select class="form-select" name="product-name" required>
-                          <option value="" disabled selected>請選擇戰術名稱</option>
-                          <option value="戰術名稱1">牛角戰術</option>
-                          <option value="戰術名稱2">西班牙擋拆</option>
-                          <option value="戰術名稱3">戰術名稱3</option>
-                          <!-- 根據您的需求，添加其他選項 -->
+                        <input class="form-control" type="text" name="shooter">
+                      </div>
+                </div>
+              <BR>
+               <div class="row">
+                  <div class="col-lg-4">
+                    <h4 class="mb-0">
+                      <label for="product-name" class="form-label">是否空檔：</label>
+                    </h4>
+                  </div>
+                  <div class="col-lg-2">
+                      <div class="verification-code-input">
+                        <select class="form-select" name="is-vacant" required>
+                          <option value="是">是</option>
+                          <option value="否">否</option>
                         </select>
                       </div>
+                  </div>                
                 </div>
                 <br>
                 <div class="row">
-                    <div class="col-lg-4">
-                      <h4 class="mb-0">
-                        <label for="product-name" class="form-label">對手戰術名稱：</label>
-                      </h4>
-                    </div>
-                    <div class="col-lg-8">
-                        <input class="form-control" type="text" name="product-name">
-                      </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-lg-4">
-                      <h4 class="mb-0">
-                        <label for="product-name" class="form-label">執行球員背號：</label>
-                      </h4>
-                    </div>  
-                    <div class="col-lg-8">
-                        <div class="verification-code-input">
-                        <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" required>
-                        <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" required>
-                        <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" required>
-                        <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" required>
-                        <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" required>
-                        </div>
-                    </div>
-                </div>
-                  
-                <style>
-                    .verification-code-input {
-                        display: flex;
-                    }
-                  
-                    .verification-code-input input {
-                        flex: 1;
-                        margin-right: 5px;
-                    }
-                </style>
-                <br>
-               <div class="row">
-                    <div class="col-lg-4">
-                      <h4 class="mb-0">
-                        <label for="product-name" class="form-label">發動球員背號：</label>
-                      </h4>
-                    </div>  
-                    <div class="col-lg-2">
-                        <div class="verification-code-input">
-                        <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" required>    
-                        </div>
-                    </div>
-                </div>
-                <br>
-               <div class="row">
-                    <div class="col-lg-4">
-                      <h4 class="mb-0">
-                        <label for="product-name" class="form-label">終結球員背號：</label>
-                      </h4>
-                    </div>  
-                    <div class="col-lg-2">
-                        <div class="verification-code-input">
-                        <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" required>    
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                <div class="col-lg-4">
+                  <div class="col-lg-4">
                     <h4 class="mb-0">
-                    <label for="product-name" class="form-label">空檔與否：</label>
+                      <label for="product-name" class="form-label">是否得分：</label>
                     </h4>
+                  </div>
+                  <div class="col-lg-2">
+                      <div class="verification-code-input">
+                        <select class="form-select" name="is-scored" required>
+                          <option value="是">是</option>
+                          <option value="否">否</option>
+                        </select>
+                      </div>
+                  </div>                
                 </div>
-                <div class="col-lg-2">
-                    <select class="form-select" name="product-name" required>
-                    <option value="">請選擇</option>
-                    <option value="是">是</option>
-                    <option value="否">否</option>
-                    </select>
-                </div>
-                </div>
-
                 <br>
-                <input type="hidden" name="pid" value="{{p.PID}}">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <h4 class="mb-0">
+                      <label for="product-name" class="form-label">備註：</label>
+                    </h4>
+                    <br>
+                    <div class="form-group">
+                    
+                      <textarea class="form-control" name="remarks" rows="3"></textarea>
+                    </div>
+                  </div>
+                <div>
+                  <br>              
+            </div>      
+      </div>
+    <HR>
+    <br> 
+            <div class="mb-3">
+              <div class="row">
+                <div class="col-lg-4">
+                  <h4 class="mb-0">
+                    <label for="product-name" class="form-label">對方陣容：</label>
+                  </h4>
+                </div>  
+                <div class="col-lg-8">
+                  <div class="verification-code-input">
+                    <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" name="o1" required>
+                    <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" name="o2" required>
+                    <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" name="o3" required>
+                    <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" name="o4" required>
+                    <input class="form-control" type="text" pattern="[0-9]{1,2}" maxlength="2" name="o5" required>
+                  </div>
+                </div>
+                
+            </div>
+              
+           
+            <br>
+            <div class="row">
+              <div class="col-lg-4">
+                <h4 class="mb-0">
+                  <label for="defense-tactic" class="form-label">對方防守系統：</label>
+                </h4>
+              </div>
+              <div class="col-lg-8">
+                <select class="form-select" name="defensive-system" id="defense-tactic" required>
+                  <option value="不採用戰術" selected>不採用戰術</option>
+                  <option value="2-3 區域聯防">2-3 區域聯防</option>
+                  <option value="3-2 區域聯防">3-2 區域聯防</option>
+                  <option value="1-1 盯人">1-1 盯人</option>
+                  <option value="其他">其他</option>
+                  <!-- 根據您的需求，添加其他選項 -->
+                </select>
+                <br>
+                <div id="defense-other-option" style="display: none;">
+                  <input type="text" name="defense-other-option-value" class="form-control" placeholder="填寫戰術">
+                </div>
+              </div>
+            </div>
+            <script>
+            const defenseSelectElement = document.getElementById('defense-tactic');
+            const defenseOtherOptionDiv = document.getElementById('defense-other-option');
+            
+            defenseSelectElement.addEventListener('change', function() {
+              if (defenseSelectElement.value === '其他') {
+                defenseOtherOptionDiv.style.display = 'block';
+              } else {
+                defenseOtherOptionDiv.style.display = 'none';
+              }
+            });
+            </script>
+         
+                <div class="row">
+                  <div class="col-lg-6">
+                    <h4 class="mb-0">
+                      <label for="product-name" class="form-label">備註：</label>
+                    </h4>
+                    <div class="form-group">
+                      <textarea class="form-control" name="opponent-remarks" rows="3"></textarea>
+                    </div>
+                  </div>
+                <div>
+                <br>
                 <input type="submit" value="儲存" class="btn btn-outline-dark">
             </div>
-        </form>
-      </div>
-    
+    </form>
+    <br>
+    <br>
+    <br>
+    <br>
 </body>
 </html>
